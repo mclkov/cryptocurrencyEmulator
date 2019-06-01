@@ -127,7 +127,7 @@ extension Ledger {
                 coinbase: TransactionData(name: self.ledgerName, amount: 100)))
     }
     
-    func stopMining() {
+    private func stopMining() {
         self.blockInProgress?.stopSignal = true
     }
     
@@ -233,5 +233,9 @@ extension Ledger {
     
     func blockValidator(_ block: Block) -> Bool {
         return blockIsValid(block)
+    }
+    
+    func interruptMining() {
+        stopMining()
     }
 }

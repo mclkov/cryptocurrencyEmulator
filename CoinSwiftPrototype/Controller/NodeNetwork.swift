@@ -87,7 +87,7 @@ extension NodeNetwork {
                     if let longestChain = findLongestChain(currentLedger: ledger) {
                         let chainIsTheSame = longestChain.head.recalculatedHash() == ledger.chain.head.recalculatedHash()
                         if !chainIsTheSame {
-                            ledgers[name]!.stopMining()
+                            ledgers[name]!.interruptMining()
                             ledgers[name]!.addLog("\(Measurement.getCurrentTime()) \(name) switched to the longer chain")
                             ledgers[name]!.addLog("head block is created by \(longestChain.head.payload.coinbase.name)")
                             ledgers[name]!.setChain(longestChain)
