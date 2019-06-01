@@ -149,7 +149,7 @@ extension NodeNetwork {
         }
     }
     
-    func getChainOfLenger(name: String) -> Blockchain? {
+    func getChainOfLedger(name: String) -> Blockchain? {
         if ledgerExists(name: name) {
             return ledgers[name]!.chain
         }

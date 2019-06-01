@@ -29,8 +29,8 @@ class NetworkTest: XCTestCase {
         let node2AmountOfValidBlocks = queryFromNode.calculateValidBlocksOf(externalChain: network.ledgers[nodes[2]]!.chain)
         
         // Assess
-        let chainOfNode1 = network.getChainOfLenger(name: nodes[1])!
-        let chainOfNode2 = network.getChainOfLenger(name: nodes[2])!
+        let chainOfNode1 = network.getChainOfLedger(name: nodes[1])!
+        let chainOfNode2 = network.getChainOfLedger(name: nodes[2])!
         
         let node1LastBlockOwner = chainOfNode1.head.payload.coinbase.name
         let node2LastBlockOwner = chainOfNode2.head.payload.coinbase.name
@@ -55,8 +55,8 @@ class NetworkTest: XCTestCase {
         let node2AmountOfValidBlocks = queryFromNode.calculateValidBlocksOf(externalChain: network.ledgers[nodes[2]]!.chain)
         
         // Assess
-        let chainOfNode1 = network.getChainOfLenger(name: nodes[1])!
-        let chainOfNode2 = network.getChainOfLenger(name: nodes[2])!
+        let chainOfNode1 = network.getChainOfLedger(name: nodes[1])!
+        let chainOfNode2 = network.getChainOfLedger(name: nodes[2])!
         
         let node1LastBlockOwner = chainOfNode1.head.payload.coinbase.name
         let node2LastBlockOwner = chainOfNode2.head.payload.coinbase.name
@@ -333,7 +333,7 @@ class NetworkTest: XCTestCase {
             inp: TransactionData(name: nodes[1], amount: 200),
             out: TransactionData(name: newUser, amount: 200)))
         
-        print(network.getChainOfLenger(name: nodes[1])!.head)
+        print(network.getChainOfLedger(name: nodes[1])!.head)
         // Act
         let balanceOfBob = network.ledgers[nodes[2]]!.getAccountBalance(name: newUser)
         

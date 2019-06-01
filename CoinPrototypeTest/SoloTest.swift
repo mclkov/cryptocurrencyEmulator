@@ -32,7 +32,7 @@ class SoloTest: XCTestCase {
         let alice = network.ledgers["Alice"]!
         
         // Act
-        let chain = network.getChainOfLenger(name: "Alice")!
+        let chain = network.getChainOfLedger(name: "Alice")!
         let headBlock = chain.head
         let balanceOfAlice = alice.getAccountBalance(name: "Alice")
         let validBlocks = alice.calculateValidBlocksOf(externalChain: chain)
@@ -46,7 +46,7 @@ class SoloTest: XCTestCase {
         let network = NodeNetwork()
         network.createLedgerAlice()
         
-        let chain = network.getChainOfLenger(name: "Alice")!
+        let chain = network.getChainOfLedger(name: "Alice")!
         let genesisBlock = chain.head
         
         print(chain.head.hash)
