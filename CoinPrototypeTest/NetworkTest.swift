@@ -340,4 +340,43 @@ class NetworkTest: XCTestCase {
         // Assess
         XCTAssertTrue(balanceOfBob == 0)
     }
+    
+    func test_13_NetworkStabilizesItselfAsyncInvalidBlockScenario() {
+        // Assert
+        let nodes = localNodes
+        let concurrentQueue = DispatchQueue(
+            label: "serialQueue",
+            attributes: .concurrent)
+        let taskGroup = DispatchGroup()
+        let network = NodeNetwork()
+        
+        network.generateLedger(name: nodes[1], lookForLongest: true)
+        network.generateBlockForLedger(name: nodes[1])
+        
+        network.generateLedger(name: nodes[2], lookForLongest: true)
+        
+        network.generateLedger(name: nodes[3], lookForLongest: true)
+        
+        // Act
+        concurrentQueue.async(group: taskGroup) {
+            print("Node 2 init: \(Measurement.getCurrentTime())")
+            network.generateBlockForLedger(name: nodes[2])
+        }
+        
+        concurrentQueue.async(group: taskGroup) {
+            print("Node 3 init: \(Measurement.getCurrentTime())")
+            network.generateInvalidBlockForLedger(name: nodes[3])
+        }
+        
+        // Assert
+        taskGroup.wait()
+        network.generateBlockForLedger(name: nodes[2])
+        
+        let node1 = network.ledgers[nodes[1]]!
+        let node2 = network.ledgers[nodes[2]]!
+        let node3 = network.ledgers[nodes[3]]!
+        
+        XCTAssertTrue(node1.equalTo(ledger: node2) &&
+            node2.equalTo(ledger: node3))
+    }
 }

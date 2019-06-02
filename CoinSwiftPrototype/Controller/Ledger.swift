@@ -164,6 +164,8 @@ extension Ledger {
             addLog("\(Measurement.getCurrentTime()) \(ledgerName) received signal to stop mining \n new block is: \(block)")
             stopMining()
             updateChainWithReceived(newBlock: block)
+        } else {
+            addLog("\(Measurement.getCurrentTime()) \(ledgerName) received signal to stop mining \n invalid block is: \(block)")
         }
     }
     
